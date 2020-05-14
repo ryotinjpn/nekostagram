@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :microposts, only: [:create, :destroy]
+  resources :microposts, only: [:create, :show, :destroy]
   resources :relationships, only: [:create, :destroy]
  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

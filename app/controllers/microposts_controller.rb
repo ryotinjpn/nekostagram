@@ -1,5 +1,5 @@
 class MicropostsController < ApplicationController
-    before_action :authenticate_user!, only: [:create, :destroy]
+    before_action :authenticate_user!, only: [:create, :show, :destroy]
     before_action :correct_user, only: :destroy
 
     def create
@@ -11,6 +11,11 @@ class MicropostsController < ApplicationController
             @feed_items = []
             render 'static_pages/home'
         end
+    end
+
+    #投稿の詳細
+    def show 
+        @micropost = Micropost.find(params[:id])
     end
     
     def destroy
