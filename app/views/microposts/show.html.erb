@@ -3,4 +3,30 @@
 <%= image_tag @micropost.picture.url if @micropost.picture? %>
 <%= @micropost.content %>
 
+<h3>コメント</h3>
+
 <!--コメントといいね欄を書く -->
+
+<% if @micropost.comments.any? %>
+<ul>
+<% @micropost.comments.each do |comment| %>
+    <li>
+    <%= comment.body %>
+    <%= link_to '[del]', 
+        micropost_comment_path(@micropost, comment), 
+        method: :delete, 
+        class: 'command',
+        data: {confirm: 'sure?'} %>
+    </li>
+    <% end %>
+</ul>
+<% end %>
+
+<%= form_for ([@micropost, @micropost.comments.build]) do |f| %>
+<p>
+    <%= f.text_field :body %>
+</p>
+<p>
+    <%= f.submit %>
+</p>
+<% end %>
