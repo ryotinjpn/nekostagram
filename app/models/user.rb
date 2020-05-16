@@ -19,6 +19,8 @@ class User < ApplicationRecord
 
   mount_uploader :image, PictureUploader
 
+  attr_accessor :current_password
+
    # ユーザーのステータスフィードを返す
   def feed
     following_ids = "SELECT followed_id FROM relationships
@@ -41,4 +43,12 @@ class User < ApplicationRecord
   def following?(other_user)
     following.include?(other_user)
   end
+
+  def update_with_password(params, * options)
+    if params[:password].blank?
+    params.delete(:password)
+    params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+    update_attributes(params, * options)
+    end
 end
