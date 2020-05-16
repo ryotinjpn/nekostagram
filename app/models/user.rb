@@ -46,9 +46,9 @@ class User < ApplicationRecord
 
   def update_with_password(params, * options)
     if params[:password].blank?
-    params.delete(:password)
-    params.delete(:password_confirmation) if params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
-    update_attributes(params, * options)
-    end
+      update_attributes(params, * options)
+  end
 end
