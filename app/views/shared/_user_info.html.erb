@@ -1,6 +1,5 @@
 <!-- ログイン後home画面のプロフィール画像、名前、メールアドレス-->
-
-<%= link_to gravatar_for(current_user, size: 50), current_user %>
+<img src=<%= current_user.image %> class = "icon_image_prof">
 <h1><%= current_user.name %></h1>
 <h1><%= current_user.email %></h1>
 <h1><%= current_user.profile %></h1>
