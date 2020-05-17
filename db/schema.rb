@@ -15,9 +15,11 @@ ActiveRecord::Schema.define(version: 2020_05_16_101052) do
   create_table "comments", force: :cascade do |t|
     t.string "body"
     t.integer "micropost_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["micropost_id"], name: "index_comments_on_micropost_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "microposts", force: :cascade do |t|

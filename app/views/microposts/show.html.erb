@@ -3,15 +3,22 @@
 <%= image_tag @micropost.picture.url if @micropost.picture? %>
 <%= @micropost.content %>
 
+<!--いいね欄を書く-->
+
+
+
+<!-- コメント一覧 -->
+
 <h3>コメント</h3>
-
-<!--コメントといいね欄を書く -->
-
 <% if @micropost.comments.any? %>
 <ul>
 <% @micropost.comments.each do |comment| %>
     <li>
     <%= comment.body %>
+    <!--↓自分の記事のコメントは全て削除可能 @micropost.user_id→@comment.user_id変更する-->
+    <% if user_signed_in? && comment.user_id == current_user.id %>
+    <!--% if current_page?(current_user) %-->
+      <!--%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %-->
     <%= link_to '[del]', 
         micropost_comment_path(@micropost, comment), 
         method: :delete, 
@@ -19,8 +26,12 @@
         data: {confirm: 'sure?'} %>
     </li>
     <% end %>
+    <% end %>
 </ul>
 <% end %>
+
+
+<!-- コメント投稿 -->
 
 <%= form_for ([@micropost, @micropost.comments.build]) do |f| %>
 <p>
