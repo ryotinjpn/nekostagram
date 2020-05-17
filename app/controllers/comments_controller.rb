@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
         @micropost = Micropost.find(params[:micropost_id])
         @comment = @micropost.comments.create(comment_params)
         @comment.user_id = current_user.id
+        @comment.user_name = current_user.name
         @comment.save
         redirect_to micropost_path(@micropost)
     end
