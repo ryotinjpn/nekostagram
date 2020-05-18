@@ -5,7 +5,13 @@
 
 <!--いいね欄を書く-->
 
-
+<span class="like" id="like_form_<%= @micropost.id %>">
+    <% if @micropost.liked_by.include?(current_user) %>
+      <%= render "microposts/unlike", micropost: @micropost %>
+    <% else %>
+      <%= render "microposts/like", micropost: @micropost %>
+    <% end %>
+</span>
 
 <!-- コメント一覧 -->
 

@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :favorite_relationships, dependent: :destroy
+  has_many :likes, through: :favorite_relationships, source: :micropost
+
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }
 
@@ -50,5 +53,20 @@ class User < ApplicationRecord
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
       update_attributes(params, * options)
+  end
+
+  # マイクロポストをライクする
+  def like(micropost)
+    likes << micropost
+  end
+
+  # マイクロポストをライク解除する
+  def unlike(micropost)
+    favorite_relationships.find_by(micropost_id: micropost.id).destroy
+  end
+
+  # 現在のユーザーがライクしていたらtrueを返す
+  def likes?(micropost)
+    likes.include?(micropost)
   end
 end

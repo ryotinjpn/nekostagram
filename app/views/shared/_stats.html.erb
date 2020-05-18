@@ -14,4 +14,10 @@
     </strong>
     フォロワー
   </a>
+  <a href="<%= likes_user_path(@user) %>">
+    <strong id="likes" class="stat">
+      <%= @user.likes.count %>
+    </strong>
+    likes
+  </a>
 </div>

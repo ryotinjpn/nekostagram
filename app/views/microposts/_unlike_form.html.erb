@@ -1,0 +1,1 @@
+<%= form_for(current_user.favorite_relationships.find_by(micropost_id: micropost.id),html: { method: :delete }, remote: true) do |f| %>
