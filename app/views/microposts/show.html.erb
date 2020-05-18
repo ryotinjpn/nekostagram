@@ -1,5 +1,6 @@
 <!--投稿の詳細表示-->
-
+<img src=<%= @micropost.user.image %> class = "icon_image_feed">
+<span class="user"><%= link_to @micropost.user.name, @micropost.user %></span>
 <%= image_tag @micropost.picture.url if @micropost.picture? %>
 <%= @micropost.content %>
 

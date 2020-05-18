@@ -2,18 +2,11 @@
 
 <li id="micropost-<%= micropost.id %>">
   <img src=<%= micropost.user.image %> class = "icon_image_feed">
-  <!--%= link_to gravatar_for(micropost.user, size: 50), micropost.user %-->
-  <span class="user"><%= link_to micropost.user.email, micropost.user %></span>
-  <span class="content"><%= micropost.content %></span>
+  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <%= link_to image_tag(micropost.picture.url), micropost if micropost.picture? %>
-  
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if current_page?(current_user) %>
-      <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
-    <% end %>
-  </span>
+  <span class="content"><%= micropost.content %></span>
 
+  <!--いいねボタン-->
   <span class="like" id="like_form_<%= micropost.id %>">
     <% if micropost.liked_by.include?(current_user) %>
       <%= render "microposts/unlike", micropost: micropost %>
@@ -21,4 +14,14 @@
       <%= render "microposts/like", micropost: micropost %>
     <% end %>
   </span>
+  
+  <!---投稿時間-->
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+    <% if current_page?(current_user) %>
+      <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+
+  
 </li>
