@@ -3,4 +3,7 @@
 <h1><%= current_user.name %></h1>
 <h1><%= current_user.email %></h1>
 <h1><%= current_user.profile %></h1>
+<% if !current_user.youtube.blank?%>
+<%= link_to("YouTubeチャンネル", current_user.youtube) %>
+<%end%>
 <span>投稿<%= current_user.microposts.count %>件</span>

@@ -1,10 +1,14 @@
 <!--投稿の詳細表示-->
+
+<!--投稿者名とプロフ画像-->
 <img src=<%= @micropost.user.image %> class = "icon_image_feed">
 <span class="user"><%= link_to @micropost.user.name, @micropost.user %></span>
+
+<!--投稿画像とコメント-->
 <%= image_tag @micropost.picture.url if @micropost.picture? %>
 <%= @micropost.content %>
 
-<!--いいね欄を書く-->
+<!--いいね欄-->
 
 <span class="like" id="like_form_<%= @micropost.id %>">
     <% if @micropost.liked_by.include?(current_user) %>
@@ -18,33 +22,34 @@
 
 <h3>コメント</h3>
 <% if @micropost.comments.any? %>
-<ul>
-    <% @micropost.comments.each do |comment| %>
-        <li>
-            <%= comment.user_name %>
-            <%= comment.body %>
+    <ul>
+        <% @micropost.comments.each do |comment| %>
+            <li>
+                <%= comment.user_name %>
+                <%= comment.body %>
 
-            <!--ログイン済みかつコメントしたユーザーと、ログイン中のユーザーが一致するか判別-->
-            <% if user_signed_in? && comment.user_id == current_user.id %>
-                <%= link_to '[del]', 
-                    micropost_comment_path(@micropost, comment), 
-                    method: :delete, 
-                    class: 'command',
-                    data: {confirm: 'sure?'} %>
-        </li>
+                <!--ログイン済みかつコメントしたユーザーと、ログイン中のユーザーが一致するか判別-->
+                <% if user_signed_in? && comment.user_id == current_user.id %>
+                    <%= link_to '[del]', 
+                        micropost_comment_path(@micropost, comment), 
+                        method: :delete, 
+                        class: 'command',
+                        data: {confirm: 'sure?'} %>
+            </li>
+            <% end %>
         <% end %>
-    <% end %>
-</ul>
+    </ul>
 <% end %>
 
 
-<!-- コメント投稿 -->
+<!-- コメント投稿欄 -->
 
 <%= form_for ([@micropost, @micropost.comments.build]) do |f| %>
-<p>
-    <%= f.text_field :body %>
-</p>
-<p>
-    <%= f.submit %>
-</p>
+    <p>
+        <%= f.text_field :body %>
+    </p>
+
+    <p>
+        <%= f.submit %>
+    </p>
 <% end %>
