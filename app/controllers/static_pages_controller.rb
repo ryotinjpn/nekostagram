@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
       #@user = current_user.id
       @micropost = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page])
+      @users = User.paginate(page: params[:page]).limit(5)
     end
   end
 

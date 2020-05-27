@@ -1,9 +1,15 @@
 <!-- ログイン後home画面のプロフィール画像、名前、メールアドレス-->
-<img src=<%= current_user.image %> class = "icon_image_prof">
+<% if !current_user.youtube.blank?%>
+    <img src=<%= current_user.image %> class = "icon_image_prof">
+<% else %>
+    <%= image_tag 'usericon.png' %>
+<% end %>
+
 <h1><%= current_user.name %></h1>
 <h1><%= current_user.email %></h1>
 <h1><%= current_user.profile %></h1>
+
 <% if !current_user.youtube.blank?%>
-<%= link_to("YouTubeチャンネル", current_user.youtube) %>
-<%end%>
-<span>投稿<%= current_user.microposts.count %>件</span>
+    <%= link_to("YouTubeチャンネル", current_user.youtube) %>
+<% end %>
+    <span>投稿<%= current_user.microposts.count %>件</span>
