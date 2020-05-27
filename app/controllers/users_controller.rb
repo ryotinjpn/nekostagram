@@ -1,6 +1,17 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!, only: [:index, :edit, :update, :destroy, :following, :followers]
 
+    def index
+      if params[:q] && params[:q].reject { |key, value| value.blank? }.present?
+        @q = User.ransack(search_params, activated_true: true)
+        @title = "Search Result"
+      else
+        @q = User.ransack(activated_true: true)
+        @title = "All users"
+      end
+        @users = @q.result.paginate(page: params[:page])
+    end
+
     def show
         @user = User.find(params[:id])
         @microposts = @user.microposts.paginate(page: params[:page])
@@ -28,9 +39,9 @@ class UsersController < ApplicationController
     end
   
   private
-  
-    # 管理者かどうか確認
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
+
+    def search_params
+      params.require(:q).permit(:name_cont)
     end
+  
 end
