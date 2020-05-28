@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :favorite_relationships, dependent: :destroy
   has_many :likes, through: :favorite_relationships, source: :micropost
 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+
   validates :name, presence: true
   validates :profile, length: { maximum: 200 }
 

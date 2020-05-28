@@ -1,5 +1,6 @@
 <!--profileクリック先-->
 
+<!--画像〜フォロー数まで表示-->
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="col-md-4">
@@ -20,6 +21,8 @@
       <%= render 'shared/stats' %>
     </section>
   </aside>
+
+  <!--タイムライン 投稿数を表示-->
   <div class="col-md-8">
   <%= render 'follow_form' if user_signed_in? %>
     <% if @user.microposts.any? %>
@@ -30,4 +33,19 @@
       <%= will_paginate @microposts %>
     <% end %>
   </div>
+
+  <!--ダイレクトメッセージ-->
+  <% if @user.id == current_user.id %>
+  <% else %>
+    <% if @isRoom == true %>
+      <p><a href="/rooms/<%= @roomId %>">ダイレクトメッセージ</a>
+    <% else %>
+      <%= form_for @room do |f| %>
+        <%= fields_for @entry do |e| %>
+          <%= e.hidden_field :user_id, :value=> @user.id %>
+        <% end %>
+        <%= f.submit "チャットを始める" %>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
