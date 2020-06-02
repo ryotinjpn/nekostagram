@@ -1,15 +1,9 @@
 <li>
   <% if user.image.blank?%>
     <%= image_tag 'usericon.png', class: 'icon_image_prof'%>
-    
   <% else %>
     <img src=<%= user.image %> class = "icon_image_prof">
-    
   <% end %>
 
-  <%= link_to user.email, user %>
-  <!--% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  <% end %-->
+  <%= link_to user.name, user %>
 </li>

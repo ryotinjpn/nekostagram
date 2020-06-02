@@ -2,12 +2,14 @@
 <h1><%= @title %></h1>
 
 <div class="row">
-  <div class="search_form">
-    <%= render 'users/search_form' %>
+  <div class="all_user2">
+    <div class="search_form">
+      <%= render 'users/search_form' %>
+    </div>
+
+    <ul class="users">
+      <%= render @users %>
+    </ul>
   </div>
 </div>
-
-<ul class="users">
-  <%= render @users %>
-</ul>
 

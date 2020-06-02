@@ -13,12 +13,12 @@
         <% else %>
             <%= image_tag 'usericon.png', class: 'icon_image_prof'%>
         <% end %>
-        <h1><%= link_to(current_user.name, current_user) %></h1>
+        <%= link_to current_user.name, current_user, class: "user_top_name" %>
       </div>
     
-      <div class="user_top">
-        <h3>おすすめ</h3>
-        <h2><%= link_to "すべてを見る", users_path %></h2>
+      <div class="user_top2">
+        <span class="recommended">おすすめ</span>
+        <span class="all_user"><%= link_to "すべてを見る", users_path %></span>
       </div>
         <ul class="users">
           <%= render @users %>

@@ -18,38 +18,43 @@
 
   <aside class="col-md-4">
     <section class="user_info">
-    <div class="user_top">
-      <h1>
-        <% if !@user.image.blank?%>
-            <img src=<%= @user.image %> class = "icon_image_prof">
-        <% else %>
-            <%= image_tag 'usericon.png' %>
-        <% end %>
-        
-        <%= @user.name %>
-        </div>
-        <%= @user.profile %>
-        <%= render 'follow_form' if user_signed_in? %>
-
-        <!--ダイレクトメッセージ-->
-        <% if @user.id == current_user.id %>
-        <% else %>
-          <% if @isRoom == true %>
-            <p><a href="/rooms/<%= @roomId %>">ダイレクトメッセージ</a>
+      <div class="user_top">
+        <h1>
+          <% if !@user.image.blank?%>
+              <img src=<%= @user.image %> class = "icon_image_prof">
           <% else %>
-            <%= form_for @room do |f| %>
-              <%= fields_for @entry do |e| %>
-                <%= e.hidden_field :user_id, :value=> @user.id %>
-              <% end %>
-              <%= f.submit "チャットを始める" %>
+              <%= image_tag 'usericon.png' %>
+          <% end %>
+          <%= @user.name %>
+        </h1>
+      </div>
+      <span><%= @user.profile %></span>
+      <% if !@user.youtube.blank?%>
+        <span><%= link_to "YouTubeチャンネル", @user.youtube %></span>
+      <% end %>
+        
+      <%= render 'follow_form' if user_signed_in? %>
+
+      <!--ダイレクトメッセージ-->
+      <% if @user.id == current_user.id %>
+      <% else %>
+        <% if @isRoom == true %>
+          <p><a href="/rooms/<%= @roomId %>">ダイレクトメッセージ</a>
+        <% else %>
+          <%= form_for @room do |f| %>
+            <%= fields_for @entry do |e| %>
+              <%= e.hidden_field :user_id, :value=> @user.id %>
             <% end %>
+            <%= f.submit "チャットを始める" %>
           <% end %>
         <% end %>
-      </h1>
+      <% end %>
     </section>
+
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+  
   </aside>
 
 </div>
