@@ -1,13 +1,14 @@
 <!-- ログイン後の投稿欄とボタン-->
 
 <%= form_for(@micropost) do |f| %>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "コメントを書く" %>
+<div class="row">
+  <div class="col-md-12">
+      <%= f.text_area :content, placeholder: "キャプションを書く", class: 'form-caption'%>
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+      <%= f.submit "投稿する", class: "btn btn-primary btn-post" %>
   </div>
-  <%= f.submit "投稿する", class: "btn btn-primary" %>
-  <span class="picture">
-    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-  </span>
+</div>
+    
 <% end %>
 
 <script type="text/javascript">

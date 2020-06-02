@@ -1,27 +1,28 @@
 <% if user_signed_in? %>
   <div class="row">
-    <aside class="col-md-4">
-      <section class="user_info">
-        <%= render 'shared/user_info' %>
-      </section>
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-      <section class="micropost_form">
-        <%= render 'shared/micropost_form' %>
-      </section>
-    </aside>
-    <div class="col-md-4">
+     <div class="col-md-8">
+      <%= render 'shared/micropost_form' %>
       <h3>タイムライン</h3>
       <%= render 'shared/feed' %>
     </div>
-
+   
     <div class="col-md-4">
-    <h3>おすすめ</h3>
-    <h2><%= link_to "すべてを見る", users_path %></h2>
-      <ul class="users">
-        <%= render @users %>
-      </ul>
+      <div class="user_top">
+        <% if !current_user.image.blank?%>
+          <img src=<%= current_user.image %> class = "icon_image_prof">
+        <% else %>
+            <%= image_tag 'usericon.png', class: 'icon_image_prof'%>
+        <% end %>
+        <h1><%= link_to(current_user.name, current_user) %></h1>
+      </div>
+    
+      <div class="user_top">
+        <h3>おすすめ</h3>
+        <h2><%= link_to "すべてを見る", users_path %></h2>
+      </div>
+        <ul class="users">
+          <%= render @users %>
+        </ul>
     </div>
   </div>
 

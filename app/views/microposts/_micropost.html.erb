@@ -1,10 +1,19 @@
 <!--タイムライン-->
 
 <li id="micropost-<%= micropost.id %>">
-  <img src=<%= micropost.user.image %> class = "icon_image_feed">
-  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
-  <%= link_to image_tag(micropost.picture.url), micropost if micropost.picture? %>
-  <span class="content"><%= micropost.content %></span>
+  <div class="user_timeline">
+    <% if !micropost.user.image.blank?%>
+      <img src=<%= micropost.user.image %> class = "icon_image_feed">
+    <% else %>
+      <%= image_tag 'usericon.png', class: 'icon_image_feed'%>
+    <% end %>
+    <span class="user_timeline2"><%= link_to micropost.user.name, micropost.user %></span>
+  </div>
+
+  <div>
+    <%= link_to image_tag(micropost.picture.url), micropost if micropost.picture? %>
+    <span class="content_timeline"><%= micropost.content %></span>
+  </div>
 
   <!--いいねボタン-->
   <span class="like" id="like_form_<%= micropost.id %>">
@@ -17,9 +26,9 @@
   
   <!---投稿時間-->
   <span class="timestamp">
-    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+    投稿 <%= time_ago_in_words(micropost.created_at) %>前
     <% if current_page?(current_user) %>
-      <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+      <%= link_to "削除", micropost, method: :delete, data: { confirm: "削除しますか?" } %>
     <% end %>
   </span>
 
