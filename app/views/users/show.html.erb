@@ -36,19 +36,19 @@
       <%= render 'follow_form' if user_signed_in? %>
 
       <!--ダイレクトメッセージ-->
-      <% if @user.id == current_user.id %>
-      <% else %>
+      <% unless @user.id == current_user.id %>
         <% if @isRoom == true %>
           <p><a href="/rooms/<%= @roomId %>">ダイレクトメッセージ</a>
         <% else %>
           <%= form_for @room do |f| %>
             <%= fields_for @entry do |e| %>
-              <%= e.hidden_field :user_id, :value=> @user.id %>
+              <%= e.hidden_field :user_id, value: @user.id %>
             <% end %>
-            <%= f.submit "チャットを始める" %>
+            <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
           <% end %>
         <% end %>
       <% end %>
+      
     </section>
 
     <section class="stats">
